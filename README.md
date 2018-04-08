@@ -11,7 +11,7 @@
 ...準備中...
 
 
-## 注意 （cautionn）
+## 注意 （Cautionn）
 
 * 本プログラムご使用は自己責任でお願いいたします
 
@@ -31,7 +31,7 @@
 JSXファイルと同階層に実行時の日時の psd ファイルと png ファイルが出力されれば成功です。
 
 
-## 仕様 (specification)
+## 仕様 (Specification)
 
 * `MergeImageToDocument.jsx` がメインの実行ファイル
 * `_resource` フォルダ内の `png・jpg・その他Photoshopで読み込み可能ファイル` を Photoshop 内へ読み込む （サンプルpng・jpg用意済）
