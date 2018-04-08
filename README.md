@@ -1,0 +1,2 @@
+# PhotoshopJSX-MergeImageToDocument
+【PhotoshopJSX】複数画像を名前付きで一つのドキュメント上に並べてpng書き出しするスクリプト
