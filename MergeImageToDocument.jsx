@@ -18,17 +18,17 @@ app.bringToFront();	//アプリケーション(photoshop)を最善面に持ってくる
 // GENERAL SETTING
 //-------------------------------------------------------------
 // 実行スクリプトファイルの情報取得
-var _script			= $.fileName;								//スクリプトファイルのフルパス取得
-var _root			= File($.fileName).parent + "/";			//スクリプトファイルまでのパス取得
-var _scriptName		= File($.fileName).name;					//スクリプトファイル名取得
+var _script			= $.fileName;								// スクリプトファイルのフルパス取得
+var _root			= File($.fileName).parent + "/";			// スクリプトファイルまでのパス取得
+var _scriptName		= File($.fileName).name;					// スクリプトファイル名取得
 var _addFolder		= "_resource/";
 
 // 読み込む対象のファイルを選定するための設定
-var dir			= new Folder(_root+_addFolder);					//ファイル読み込み元のフォルダパス
-// var extention	= ".png";									//拡張子
-// var files		= dir.getFiles("*" + extention);			//指定拡張子のファイルを取得
-var files		= dir.getFiles("*").sort();						//指定拡張子のファイルを取得
-var filecnt		= files.length;									//処理対象ファイル数の取得
+var dir			= new Folder(_root+_addFolder);					// ファイル読み込み元のフォルダパス
+// var extention	= ".png";									// 拡張子
+// var files		= dir.getFiles("*" + extention);			// 指定拡張子のファイルを取得
+var files		= dir.getFiles("*").sort();						// 指定拡張子のファイルを取得
+var filecnt		= files.length;									// 処理対象ファイル数の取得
 
 // ドキュメント設定
 var _docNew;							// 新規で作成するドキュメント定義用
@@ -54,11 +54,61 @@ var setBackgroundColorR = parseInt(setBackgroundColor.substring(1,3), 16);
 var setBackgroundColorG = parseInt(setBackgroundColor.substring(3,5), 16);
 var setBackgroundColorB = parseInt(setBackgroundColor.substring(5,7), 16);
 
-//その他
-var errorCount = 0;												//エラー回数をカウント
+// その他
+var errorCount = 0;												// エラー回数をカウント
 
 // photoshop設定
 preferences.rulerUnits = Units.PIXELS;	// 単位をpxに設定
+
+
+
+// *** 読み込む対象のファイルを選定するための設定 - 追加記述start ***
+var extList		= new Array('jpg', 'png', 'gif', 'psd');		// 拡張子リスト（対象を絞る）
+var selectionFiles = [];										// 選定後のファイルを格納
+
+try{
+	if(filecnt){
+
+		for(var i=0; i<filecnt; i++){
+
+			var currentFileName = String(files[i].name);	// 処理対象のファイル名を格納
+			var check = false;								// 
+
+			// ドットが含まれるファイルかどうか（正規表現で含まれてる=trueの場合の処理）
+			if( ~currentFileName.indexOf('.')){
+
+				// ファイルを拡張子と分けて扱えるようにする
+				currentFileName = separateFileName(currentFileName);	// 例：x['filename'] or x['ext']
+
+				// 拡張子リストに該当するファイルであればtrue
+				for(var j=0; j<extList.length; j++){
+					if(!check && currentFileName['ext'] == extList[j]){
+						check = true;
+						selectionFiles.push(files[i]);			// 選定ファイル群に追加
+						break;									// forを抜ける
+					}
+				}
+
+			}else{
+				continue;										// forの次の処理へ進む
+			}
+
+		}
+		// alert(selectionFiles);
+		// alert(selectionFiles.length);
+
+	}else{
+		throw new Error(errMsg = "読み込む対象のファイルがありません");
+	}
+}catch(e){
+	alert(e && e.message ? e.line+": "+e.message : e.line+": "+errMsg);
+}
+
+// 対象ファイルを置き換え
+files		= selectionFiles
+filecnt		= selectionFiles.length;
+// *** 追加記述end ***
+
 
 
 
@@ -129,8 +179,8 @@ function run(){
 				}catch(e){
 					continue;
 				}
-				//レイヤー名をファイル名と同じにする
-				_docNew.activeLayer.name = files[i].name;
+				//レイヤー名をファイル名と同じにする（）
+				_docNew.activeLayer.name = decodeURIComponent(files[i].name);
 
 				//新規ドキュメント内の「背景」レイヤーを削除
 				_docNew.layers[1].remove();
@@ -151,7 +201,7 @@ function run(){
 				}
 
 				//レイヤー名の変更
-				_docNew.activeLayer.name = files[i].name;
+				_docNew.activeLayer.name = decodeURIComponent(files[i].name);
 
 			}
 
@@ -463,5 +513,24 @@ function png24Export_fullPath(fullPath, fileName){
 function mergeVisLayers(){
 	if(activeDocument.artLayers.length>1){
 		activeDocument.mergeVisibleLayers();
+	}
+}
+
+//-------------------------------------------------------------
+// ファイル名と拡張子を分けて変数に当てはめて値を返す（呼び出し側で変数の指定が必要）
+//-------------------------------------------------------------
+function separateFileName(theFileName){
+	if (/\.\w+$/.test(theFileName)) {
+		var m = theFileName.match(/([^\/\\]+)\.(\w+)$/);
+		if (m)
+			return {filename: m[1], ext: m[2]};
+		else
+			return {filename: 'no file name', ext:null};
+	} else {
+		var m = theFileName.match(/([^\/\\]+)$/);
+		if (m)
+			return {filename: m[1], ext: null};
+		else
+			return {filename: 'no file name', ext:null};
 	}
 }
