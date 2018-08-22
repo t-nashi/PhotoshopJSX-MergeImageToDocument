@@ -2,18 +2,25 @@
 
 このプログラムは [Adobe Photoshop](http://www.adobe.com/jp/products/photoshop.html) で動作する JavaScript(JSX) です。
 実行するとJSXファイルと同階層の「`_resource`」フォルダ内にあるPhotoshopで読み込み可能なファイルを一つの psd ドキュメント内にまとめて、各レイヤー毎の名前を付与して psd と png を出力します。
+<br><br><br>
+
 
 ▽動作確認済み
 * Adobe Photoshop CC 2018 （Windows10、macOS High Sierra(v10.13.3)）
+<br><br><br>
+
 
 ## 解説サイト
 
 ...準備中...
+<br><br><br>
+
 
 
 ## 注意 （Cautionn）
 
 * 本プログラムご使用は自己責任でお願いいたします
+<br><br><br>
 
 
 ## インストール （Installation）
@@ -21,6 +28,8 @@
 1. このページの `Clone or download` ボタンよりリポジトリのクローンもしくはZIPダウンロードをします。
 2. ZIPダウンロードの場合は解凍をします。
 3. 解凍して出来たフォルダの中に「`MergeImageToDocument.jsx`」があれば完了です。
+<br><br><br>
+
 
 
 ## 使用法 （Usage）
@@ -29,6 +38,9 @@
 
 すでに「_resource」フォルダ内にサンプルのpng・jpgファイルを用意しているので、JSXファイルを実行することで効果を確認できます。
 JSXファイルと同階層に実行時の日時の psd ファイルと png ファイルが出力されれば成功です。
+<br><br><br>
+
+
 
 
 ## 仕様 (Specification)
@@ -40,6 +52,9 @@ JSXファイルと同階層に実行時の日時の psd ファイルと png フ�
 * 各レイヤー上部へ作成されるテキストの色・サイズ、最下部に配置する背景レイヤーの色等はスクリプト内で調整可能
 * psdファイルは一番最初に読み込んだファイルのドキュメントサイズ・解像度を踏襲している
 * 処理が成功するとJSXファイルと同階層に実行日時名の psd と png(24bit) ファイルが出力される
+<br><br><br>
+
+
 
 
 ## コピーライト （Copyright）
