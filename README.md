@@ -7,6 +7,8 @@
 
 ▽動作確認済み
 * Adobe Photoshop CC 2018 （Windows10、macOS High Sierra(v10.13.3)）
+* Adobe Photoshop CC 2019 （Windows10、macOS Mojave(v10.14)）
+
 <br><br><br>
 
 
@@ -15,6 +17,12 @@
 ...準備中...
 <br><br><br>
 
+
+
+## 動作イメージ
+
+![photoshopjsx-mergeimagetodocument](https://user-images.githubusercontent.com/5539081/47268339-8518d380-d58a-11e8-882f-4592e2f56cb6.gif)
+<br><br><br>
 
 
 ## 注意 （Cautionn）
